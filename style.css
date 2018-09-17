@@ -1,0 +1,105 @@
+body{
+	background-size: auto ;
+	background-color: white ;
+}
+
+#titleSpace{
+	font-family: "Arial", Verdana,sans-serif;
+	position: fixed;
+	height:50vh;
+	width:100%;
+	top:0;
+	background:pink;
+	text-align: center;
+}
+
+#mainWord{
+	font-size:12rem;
+	position: fixed;
+  top: 21%;
+  left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	border-right: .15em solid green; /* The typwriter cursor */
+	white-space: nowrap; /* Keeps the content on a single line */
+	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+	letter-spacing: .10em; /* Adjust as needed */
+	animation: 
+		typing 3.5s steps(40, end),
+		blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 45% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+
+#input{
+	width:50%;
+	height:50%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:18px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+#center{
+	font-size:1.5rem;
+	position: fixed;
+	width:100%;
+  top: 71%;
+  left: 50%;
+	transform: translate(-50%, -120%);
+	text-align: center;
+}
+
+#instruc{
+	font-size:4rem;
+	margin-bottom : 9px;
+}
+
+#scoreSpace{
+	position:fixed ;
+	height: 15vh;
+  width: 50%;
+  bottom:0 ;
+	left:0 ;
+	background-color: lightblue;
+	text-align: center;
+}
+
+#score{
+	position:relative;
+	font-size: 8rem;
+	top: 50%;
+  left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#timerSpace{
+	position: fixed;
+	height:15vh ;
+	width:50%;
+	bottom:0 ;
+	right:0 ;
+	background-color:green ;
+	color:white;
+	text-align: center
+}
+
+#timer{
+	position:relative;
+	font-size: 8rem;
+	top: 50%;
+  left: 50%;
+	transform: translate(-50%, -50%);
+}
+
