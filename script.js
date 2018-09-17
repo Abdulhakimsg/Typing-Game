@@ -34,6 +34,7 @@ center.appendChild(instruc);
 var typeInput = document.createElement('input') ;
 typeInput.setAttribute('type', 'text');
 typeInput.classList = 'center';
+typeInput.autofocus = true;
 typeInput.id = 'input'
 center.appendChild(typeInput) ;
 
@@ -51,10 +52,10 @@ scoreSpace.id = 'scoreSpace' ;
 document.body.appendChild(scoreSpace) ;
 
 //score
-var score = document.createElement('h5') ;
-score.id = 'score'
-score.innerText = '0'
-scoreSpace.appendChild(score) ;
+var scoreNum = document.createElement('h5') ;
+scoreNum.id = 'scoreNum' ;
+scoreNum.innerText = '0' ;
+scoreSpace.appendChild(scoreNum) ;
 
 //Create Div for Timer with ID = TimerSpace
 var timerSpace = document.createElement('div') ;
@@ -78,24 +79,27 @@ document.body.appendChild(footer)
 // ++++++++
 // Gameplay
 // ++++++++
-
-window.addEventListener('load',init)
+window.addEventListener('load',intro)
 
 //
-let time = 11 ;
-score = 0 ;
+let time = 20 ;
+let score = 0 ;
 let isPlaying;
 
 const wordInput = typeInput ;
 const currentWord = mainWord ; 
-const scoreDisplay = score ;
+const scoreDisplay = scoreNum ;
 const timeDisplay = timer ;
 const message = instruc ;
 
 const words = [
+    'i',
+    'love',
+    'bye',
     'hello',
     'hi',
-    'mabuhay',
+    'you',
+    'maryland',
 ]
 
 const praise = [
@@ -105,6 +109,12 @@ const praise = [
     'Excellent',
     'Outstanding',
 ]
+//Start Intro
+function intro(){
+    var welcomeWord = currentWord.innerText = 'Lets Type!'
+    setTimeout(welcomeWord , 3500)
+    setTimeout(init,3000)
+}
 
 //Initialise game
 function init(){
@@ -117,28 +127,33 @@ function init(){
 //start game
 var startGame = function(){
     if(matchWord()){
-    return true
+    isPlaying = true
+    showWord(words)
+    wordInput.value = '';
+    currentWord.style.color = 'black' ;
+    currentWord;
+    score ++ ;
     }
-    else{
-
-        return false;
-    }
+scoreDisplay.innerText = score
 }
 
 //match words
 var matchWord=function(){
     if(wordInput.value === currentWord.innerText){
-        currentWord.style.color = 'green';
-        setTimeout(showPraise , 500);
+        instruc.style.color = 'green'
+        showPraise();
         console.log('Match')
-        return true
+        currentWord.style.webkitAnimationPlayState="running";
+         return true
     }
     else{
-        console.log('not true')
+        message.innerText != null ;
+        instruc.style.color = 'black' ;
+        instruc.innerText = 'typing...';
         return false;
-    }
+     }
 }
-
+     
 
 //pick and show random word
 var showWord = function(){
@@ -155,11 +170,11 @@ var showPraise = function(){
 //set Timer
 var countdown= function(){
     if(time > 0){
-        if(time >= 10){
+        if(time >= 11){
             time -- ;
             isPlaying = true ;
         }
-        else if(time < 10){
+        else if(time <= 11){
             time -- ;
             timeDisplay.style.color = 'red';
             isPlaying = true ;
@@ -175,14 +190,17 @@ var countdown= function(){
 //check game status
 var checkStatus = function(){
     if(!isPlaying && time === 0){
+    typeInput.style.visibility = 'hidden' ;
     message.innerHTML = 'Try Again?' ;
     message.style.color = 'red' ;
     message.style.fontSize = '4rem' ;
     currentWord.innerHTML = 'GAME OVER' ;
     currentWord.style.color = 'red' ;
     }
+    else{
+       isPlaying = true ; 
+    }
 }
-
 
 
 
