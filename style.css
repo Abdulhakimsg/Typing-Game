@@ -25,8 +25,8 @@ body{
 	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
 	letter-spacing: .10em; /* Adjust as needed */
 	animation: 
-		typing 3.5s steps(40, end),
-		blink-caret .75s step-end infinite;
+		typing 2s steps(70, end),
+		blink-caret .45s step-end infinite;
 }
 
 @keyframes typing {
@@ -41,7 +41,8 @@ body{
 
 #input{
 	font-family: "Arial", Verdana,sans-serif;
-	font-size: 2rem;
+	font-size: 2rem , bold;
+	text-align: center;
 	width:35%;
 	height:50%;
 	border:5px solid #aaa;
@@ -65,8 +66,9 @@ body{
 
 #instruc{
 	font-size:4rem;
-	margin-bottom : 9px;
-
+	left:50%;
+	bottom:50%;
+	text-align: center;
 }
 
 #scoreSpace{
@@ -81,8 +83,8 @@ body{
 
 #scoreNum{
 	position:relative;
-	font-size: 8rem;
-	top: 50%;
+	font-size: 15rem;
+	top: 39%;
   left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -100,8 +102,8 @@ body{
 
 #timer{
 	position:relative;
-	font-size: 8rem;
-	top: 50%;
+	font-size: 15rem;
+	top: 39%;
   left: 50%;
 	transform: translate(-50%, -50%);
 }

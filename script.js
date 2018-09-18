@@ -25,7 +25,6 @@ document.body.appendChild(center);
 //Instruction
 var instruc =document.createElement('h4');
 instruc.id = 'instruc' ;
-instruc.innerText = 'Type the word above in 5 seconds';
 instruc.classList = 'center';
 center.appendChild(instruc);
 
@@ -81,8 +80,7 @@ document.body.appendChild(footer)
 // ++++++++
 window.addEventListener('load',intro)
 
-//
-let time = 20 ;
+let time = 100 ;
 let score = 0 ;
 let isPlaying;
 
@@ -92,16 +90,6 @@ const scoreDisplay = scoreNum ;
 const timeDisplay = timer ;
 const message = instruc ;
 
-const words = [
-    'i',
-    'love',
-    'bye',
-    'hello',
-    'hi',
-    'you',
-    'maryland',
-]
-
 const praise = [
     'Good job',
     'Right on',
@@ -109,19 +97,56 @@ const praise = [
     'Excellent',
     'Outstanding',
 ]
+
+// +++++++++++++++
+// Make Password
+// +++++++++++++++
+
+//make random string
+
+var randomStr = function(){
+    var length = 6
+    charSet ='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    retVal=''
+    for(var i = 0 , len = charSet.length ; i<length ; i++){
+        retVal += charSet.charAt(Math.floor(Math.random() * len))
+    }
+    return retVal
+}
+
+
+console.log(prepStr)
+
+//function pushing new word into array 
+
+var words = [];
+
+for(var i = 0 ; i< 2000 ; i++){
+    var prepStr = randomStr()
+    words.push(prepStr)
+}
+
+console.log(words)
+
+
 //Start Intro
 function intro(){
-    var welcomeWord = currentWord.innerText = 'Lets Type!'
-    setTimeout(welcomeWord , 3500)
-    setTimeout(init,3000)
+    function welcomeWord(){ 
+        currentWord.innerText = 'Lets Type!'
+        message.innerText = `Type the word above in ${time} seconds`;
+    }
+    setTimeout(welcomeWord() , 2000)
+    setTimeout(init,2000)
+
 }
 
 //Initialise game
 function init(){
     wordInput.addEventListener('input',startGame) ;
+    message.innerText=`Start typing!`
     showWord(words) ;
     setInterval(countdown,1000) ;
-    setInterval(checkStatus,50) ;
+    setInterval(checkStatus,0.1) ;
 }
 
 //start game
@@ -157,8 +182,18 @@ var matchWord=function(){
 
 //pick and show random word
 var showWord = function(){
+
+    index = 0;
     const randIndexWord = Math.floor(Math.random()*words.length)
-    currentWord.innerText = words[randIndexWord];
+    currentWord.innerText = "";
+
+    for (var i = 0 ; i<words[randIndexWord].length; i++){
+        var eachLetter = document.createElement('span')
+        var splittedWords = words[randIndexWord].split("");
+        eachLetter.id = i;
+        eachLetter.innerHTML = splittedWords[i];
+        document.getElementById("mainWord").appendChild(eachLetter);
+    }
 }
 
 //pick and show random praise
@@ -202,5 +237,27 @@ var checkStatus = function(){
     }
 }
 
+//detecting each letter of word and making it light up green.
+var index = 0;
+wordInput.addEventListener('keyup' , function() {
+
+    var events = event.key;
+    var checkForLetter = currentWord.innerText;
+    var check = checkForLetter.indexOf(events);
+    console.log(events)
+    console.log(check);
+    console.log(currentWord.innerText);
+    console.log(index)
+    var dom = document.getElementsByTagName("span");
+    console.log(dom[index].innerText)
+    if (check >= 0 && dom[index].innerText == events) {
+
+        dom[index].style.color = "green";
+        index += 1;
+    }
+    
+})
 
 
+    
+    
