@@ -4,7 +4,7 @@ body{
 }
 
 #titleSpace{
-	font-family: "Arial", Verdana,sans-serif;
+	font-family: 'Chivo', sans-serif;
 	position: fixed;
 	height:50vh;
 	width:100%;
@@ -14,16 +14,24 @@ body{
 }
 
 #mainWord{
-	font-size:12rem;
+	font-family: 'Chivo', sans-serif;
+	font-size:9rem;
 	position: fixed;
   top: 21%;
   left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.typewriter{
 	text-align: center;
-	border-right: .15em solid green; /* The typwriter cursor */
-	white-space: nowrap; /* Keeps the content on a single line */
-	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-	letter-spacing: .10em; /* Adjust as needed */
+	 text-shadow: 0px 0px 0px #b2a98f,
+                 0px 14px 10px rgba(0,0,0,0.15),
+                 0px 24px 2px rgba(0,0,0,0.1),
+                 0px 34px 30px rgba(0,0,0,0.1);
+	border-right: .15em solid green; 
+	white-space: nowrap; 
+	margin: 0 auto; 
+	letter-spacing: .10em; 
 	animation: 
 		typing 2s steps(70, end),
 		blink-caret .45s step-end infinite;
@@ -36,14 +44,24 @@ body{
 
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: orange; }
+  50% { border-color:brown; }
+}
+
+#center{
+	font-size:7rem;
+	position: fixed;
+	height:30vh;
+	width:100%;
+  top: 85%;
+  left: 50%;
+	transform: translate(-50%, -102%);
+	text-align: center;
 }
 
 #input{
-	font-family: "Arial", Verdana,sans-serif;
-	font-size: 2rem , bold;
+	font-family: 'Roboto Mono', monospace;
 	text-align: center;
-	width:35%;
+	width:70%;
 	height:50%;
 	border:5px solid #aaa;
 	border-radius:4px;
@@ -54,17 +72,8 @@ body{
 	transition:.3s;
 }
 
-#center{
-	font-size:1.5rem;
-	position: fixed;
-	width:100%;
-  top: 76%;
-  left: 50%;
-	transform: translate(-50%, -120%);
-	text-align: center;
-}
-
 #instruc{
+	font-family: 'Roboto Mono', monospace;
 	font-size:4rem;
 	left:50%;
 	bottom:50%;
@@ -89,6 +98,14 @@ body{
 	transform: translate(-50%, -50%);
 }
 
+#scoreTitle{
+	position:relative;
+	font-size: 4rem;
+	top: 0;
+  left: 0;
+	transform: translate(-29%, -400%);
+}
+
 #timerSpace{
 	position: fixed;
 	height:15vh ;
@@ -106,4 +123,20 @@ body{
 	top: 39%;
   left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+#timerTitle{
+	position:relative;
+	font-size: 4rem;
+	top: 0;
+  left: 0;
+	transform: translate(-33%, -400%);
+}
+
+.blink{
+	text-align: center;
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {  
+  70% { opacity: 0.1; }
 }

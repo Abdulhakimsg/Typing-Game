@@ -11,9 +11,10 @@ var titleSpace = document.createElement('div') ;
 titleSpace.id = 'titleSpace' ;
 document.body.appendChild(titleSpace) ;
 
-//word
+//Mainword
 var mainWord = document.createElement('h1') ;
 mainWord.id = 'mainWord' ;
+mainWord.classList.add("typewriter");
 mainWord.innerText = 'CHOCOLATE' ;
 document.body.appendChild(mainWord) ;
 
@@ -28,7 +29,6 @@ instruc.id = 'instruc' ;
 instruc.classList = 'center';
 center.appendChild(instruc);
 
-
 //Inputfield
 var typeInput = document.createElement('input') ;
 typeInput.setAttribute('type', 'text');
@@ -37,42 +37,39 @@ typeInput.autofocus = true;
 typeInput.id = 'input'
 center.appendChild(typeInput) ;
 
-//Button Submit
-// var submit = document.createElement('INPUT') ;
-// submit.setAttribute('type' , 'submit');
-// submit.classList = 'center'
-// submit.id = 'submit'
-// center.appendChild(submit) ;
-
-
 //Create Div for score with ID = scoreSpace
 var scoreSpace = document.createElement('div') ;
 scoreSpace.id = 'scoreSpace' ;
 document.body.appendChild(scoreSpace) ;
 
-//score
+//score Number
 var scoreNum = document.createElement('h5') ;
 scoreNum.id = 'scoreNum' ;
 scoreNum.innerText = '0' ;
 scoreSpace.appendChild(scoreNum) ;
+
+//Score Title
+var scoreTitle = document.createElement('h5')
+scoreTitle.id = 'scoreTitle'
+scoreTitle.innerText = 'SCORE'
+scoreSpace.appendChild(scoreTitle)
 
 //Create Div for Timer with ID = TimerSpace
 var timerSpace = document.createElement('div') ;
 timerSpace.id = 'timerSpace' ;
 document.body.appendChild(timerSpace) ;
 
-//timer
+//timer Number
 var timer = document.createElement('h5') ;
 timer.id = 'timer';
 timer.innerText = '0' ;
 timerSpace.appendChild(timer) ;
 
-//Create Line for Footer
-var footer = document.createElement('div')
-footer.id = 'footer'
-document.body.appendChild(footer)
-
-//Score
+//timer Title
+var timerTitle = document.createElement('h5') ;
+timerTitle.id = 'timerTitle'
+timerTitle.innerText = 'TIME'
+timerSpace.appendChild(timerTitle)
 
 
 // ++++++++
@@ -80,8 +77,8 @@ document.body.appendChild(footer)
 // ++++++++
 window.addEventListener('load',intro)
 
-let time = 100 ;
-let score = 0 ;
+let time = 3 ;
+score = 0 ;
 let isPlaying;
 
 const wordInput = typeInput ;
@@ -90,23 +87,35 @@ const scoreDisplay = scoreNum ;
 const timeDisplay = timer ;
 const message = instruc ;
 
+
 const praise = [
     'Good job',
     'Right on',
     'Well done',
     'Excellent',
     'Outstanding',
+    'Wonderful',
+    'You Rock!',
+    'You Rule!',
+    'Amazing',
+    'Easy!',
+]
+
+const promptWrong = [
+    'Are you sure?',
+    'Have another look?',
+    'Check again?'
 ]
 
 // +++++++++++++++
 // Make Password
 // +++++++++++++++
 
-//make random string
+//make random string : Easy
 
 var randomStr = function(){
-    var length = 6
-    charSet ='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    var length = 5
+    charSet ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     retVal=''
     for(var i = 0 , len = charSet.length ; i<length ; i++){
         retVal += charSet.charAt(Math.floor(Math.random() * len))
@@ -114,26 +123,65 @@ var randomStr = function(){
     return retVal
 }
 
+//make random string : Medium
+var randomStrNum = function(){
+    var length = 7
+    charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
+    retVal = ''
+    for(var i = 0 , len = charSet.length ; i<length ; i++){
+        retVal += charSet.charAt(Math.floor(Math.random() * len))
+    }
+    return retVal
+}
 
-console.log(prepStr)
+//make random string : Hard
+var randomSym = function(){
+    var length = 10
+    charSet = '~!@#$%^&*()_+{}[]|:/?><ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
+    retVal = ''
+    for(var i =0 , len = charSet.length ; i<length ; i++){
+        retVal += charSet.charAt(Math.floor(Math.random()* len))
+    }
+    return retVal
+}
 
-//function pushing new word into array 
-
+//function Letter+Num array 
 var words = [];
 
-for(var i = 0 ; i< 2000 ; i++){
+for(var i = 0 ; i< 200 ; i++){
     var prepStr = randomStr()
     words.push(prepStr)
 }
 
-console.log(words)
+//function Letter+Num array
+var wordNum = []
 
+for(var i = 0 ; i<200 ; i++){
+    var prepStrNum = randomStrNum()
+    wordNum.push(prepStrNum)
+}
+
+//function Letter+Num+Sym array
+var symArr = []
+
+for(var i =0 ; i<200 ; i++){
+    var prepSym = randomSym()
+    symArr.push(prepSym)
+}
+
+console.log(symArr)
+
+// +++++++++++++++
+// Game Functions
+// +++++++++++++++
 
 //Start Intro
 function intro(){
     function welcomeWord(){ 
         currentWord.innerText = 'Lets Type!'
-        message.innerText = `Type the word above in ${time} seconds`;
+        message.innerText = `Type the words above in ${time} seconds`;
+        var box = document.getElementById('input') ;
+
     }
     setTimeout(welcomeWord() , 2000)
     setTimeout(init,2000)
@@ -144,19 +192,19 @@ function intro(){
 function init(){
     wordInput.addEventListener('input',startGame) ;
     message.innerText=`Start typing!`
-    showWord(words) ;
+    pickArr() ;
     setInterval(countdown,1000) ;
-    setInterval(checkStatus,0.1) ;
+    setInterval(checkStatus,1000) ;
 }
 
 //start game
 var startGame = function(){
     if(matchWord()){
     isPlaying = true
-    showWord(words)
+    pickArr();
     wordInput.value = '';
     currentWord.style.color = 'black' ;
-    currentWord;
+    currentWord;;
     score ++ ;
     }
 scoreDisplay.innerText = score
@@ -175,12 +223,11 @@ var matchWord=function(){
         message.innerText != null ;
         instruc.style.color = 'black' ;
         instruc.innerText = 'typing...';
-        return false;
-     }
+    }
 }
-     
 
-//pick and show random word
+
+//function pick and show random word
 var showWord = function(){
 
     index = 0;
@@ -196,10 +243,62 @@ var showWord = function(){
     }
 }
 
+//function pick and show random wordNum
+var showWordNum = function(){
+
+    index = 0;
+    const randIndexWordNum = Math.floor(Math.random()*wordNum.length)
+    currentWord.innerText = ''
+
+    for(var i =0;i<wordNum[randIndexWordNum].length;i++){
+        var eachLetter = document.createElement('span')
+        var splittedWords = wordNum[randIndexWordNum].split('')
+        eachLetter.id = i;
+        eachLetter.innerHTML = splittedWords[i];
+        document.getElementById('mainWord').appendChild(eachLetter);
+    }
+}
+
+//function pick and show random symArr
+
+var showSymArr = function(){
+    index = 0
+    const randIndxSym = Math.floor(Math.random()*symArr.length)
+    currentWord.innerText = ''
+
+    for(var i =0 ; i<symArr[randIndxSym].length;i++){
+        var eachLetter = document.createElement('span')
+        var splittedWords = symArr[randIndxSym].split('')
+        eachLetter.id = i;
+        eachLetter.innerHTML = splittedWords[i]
+        document.getElementById('mainWord').appendChild(eachLetter)
+    }
+}
+
+//decide if show word or wordNUM
+
+var pickArr = function(){
+    if(score <= 3){
+        showWord(words)
+    }
+    else if (score <5){
+        showWordNum(wordNum)
+    }
+    else{
+        showSymArr(symArr)
+    }
+}
+
 //pick and show random praise
 var showPraise = function(){
     const randIndexPraise = Math.floor(Math.random()*praise.length)
     message.innerText = praise[randIndexPraise] ;
+}
+
+//pick and show random prompt
+var showPrompt = function(){
+    const randIndexPrompt = Math.floor(Math.random()*promptWrong.length)
+    message.innerText = promptWrong[randIndexPrompt];
 }
 
 //set Timer
@@ -212,6 +311,7 @@ var countdown= function(){
         else if(time <= 11){
             time -- ;
             timeDisplay.style.color = 'red';
+            timeDisplay.classList.add("blink");
             isPlaying = true ;
          }
     }
@@ -222,42 +322,59 @@ var countdown= function(){
     timeDisplay.innerHTML=time;
 }
 
+//set Timeout for 10 secs
+var timeoutdur = 10;
+
+function minustimeout(){
+    timeoutdur --
+    return timeoutdur
+}
+
 //check game status
 var checkStatus = function(){
-    if(!isPlaying && time === 0){
-    typeInput.style.visibility = 'hidden' ;
-    message.innerHTML = 'Try Again?' ;
+    if(!isPlaying && time === 0){ ; 
+    setTimeout(function(){location.reload()},8000)
+    timeDisplay.classList.remove("blink")
+    mainWord.classList.remove("typewriter");
+    message.classList.add("blink");
+    mainWord.classList.add("blink");
+    setInterval(minustimeout(),1000)
+    message.innerText = `Game will restart in ${timeoutdur} secs `
     message.style.color = 'red' ;
     message.style.fontSize = '4rem' ;
     currentWord.innerHTML = 'GAME OVER' ;
     currentWord.style.color = 'red' ;
+    wordInput.removeEventListener('keyup' , checkLetterByLetter); 
     }
     else{
        isPlaying = true ; 
     }
 }
 
+
 //detecting each letter of word and making it light up green.
 var index = 0;
-wordInput.addEventListener('keyup' , function() {
+var checkLetterByLetter = function() {
 
     var events = event.key;
     var checkForLetter = currentWord.innerText;
     var check = checkForLetter.indexOf(events);
-    console.log(events)
-    console.log(check);
-    console.log(currentWord.innerText);
-    console.log(index)
     var dom = document.getElementsByTagName("span");
-    console.log(dom[index].innerText)
-    if (check >= 0 && dom[index].innerText == events) {
-
+    var indexVal = document.getElementsByTagName("span")[index]
+    var indexInVal = indexVal.innerHTML
+    console.log(indexVal.innerHTML)
+    console.log(events);
+    if (indexInVal === events) {
         dom[index].style.color = "green";
         index += 1;
+
     }
-    
-})
+    if (wordInput.value.length >= currentWord.innerText.length){
+        console.log('not tally')
+        showPrompt();
+        message.style.color = 'red'
+    }
 
+}
 
-    
-    
+wordInput.addEventListener('keyup' , checkLetterByLetter); 
