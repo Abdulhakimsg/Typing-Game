@@ -77,7 +77,7 @@ timerSpace.appendChild(timerTitle)
 // ++++++++
 window.addEventListener('load',intro)
 
-let time = 3 ;
+let time = 45 ;
 score = 0 ;
 let isPlaying;
 
@@ -179,14 +179,20 @@ console.log(symArr)
 function intro(){
     function welcomeWord(){ 
         currentWord.innerText = 'Lets Type!'
-        message.innerText = `Type the words above in ${time} seconds`;
+        message.innerText = `Type in ${time} secs.Press Y to start.`;
         var box = document.getElementById('input') ;
 
     }
     setTimeout(welcomeWord() , 2000)
-    setTimeout(init,2000)
-
 }
+
+//Press Enter to Start
+wordInput.addEventListener('keyup',function(event){
+    if(input.value === 'y'){
+    input.value = ''
+    init()
+    }
+})
 
 //Initialise game
 function init(){
@@ -334,6 +340,7 @@ function minustimeout(){
 var checkStatus = function(){
     if(!isPlaying && time === 0){ ; 
     setTimeout(function(){location.reload()},8000)
+    wordInput.style.visibility ='hidden';
     timeDisplay.classList.remove("blink")
     mainWord.classList.remove("typewriter");
     message.classList.add("blink");
