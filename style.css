@@ -28,11 +28,11 @@ body{
                  0px 14px 10px rgba(0,0,0,0.15),
                  0px 24px 2px rgba(0,0,0,0.1),
                  0px 34px 30px rgba(0,0,0,0.1);
-	border-right: .15em solid green; 
-	white-space: nowrap; 
-	margin: 0 auto; 
-	letter-spacing: .10em; 
-	animation: 
+	border-right: .15em solid green;
+	white-space: nowrap;
+	margin: 0 auto;
+	letter-spacing: .10em;
+	animation:
 		typing 2s steps(70, end),
 		blink-caret .45s step-end infinite;
 }
@@ -137,6 +137,6 @@ body{
 	text-align: center;
   animation: blinker 1s linear infinite;
 }
-@keyframes blinker {  
+@keyframes blinker {
   70% { opacity: 0.1; }
 }

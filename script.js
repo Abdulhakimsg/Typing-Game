@@ -75,14 +75,16 @@ timerSpace.appendChild(timerTitle)
 // ++++++++
 // Gameplay
 // ++++++++
+//once loaded run intro
 window.addEventListener('load',intro)
 
+//declaring and initialising working variables
 let time = 45 ;
 score = 0 ;
 let isPlaying;
 
 const wordInput = typeInput ;
-const currentWord = mainWord ; 
+const currentWord = mainWord ;
 const scoreDisplay = scoreNum ;
 const timeDisplay = timer ;
 const message = instruc ;
@@ -145,7 +147,7 @@ var randomSym = function(){
     return retVal
 }
 
-//function Letter+Num array 
+//function Letters into array
 var words = [];
 
 for(var i = 0 ; i< 200 ; i++){
@@ -153,7 +155,7 @@ for(var i = 0 ; i< 200 ; i++){
     words.push(prepStr)
 }
 
-//function Letter+Num array
+//function Letters+Num into array
 var wordNum = []
 
 for(var i = 0 ; i<200 ; i++){
@@ -161,7 +163,7 @@ for(var i = 0 ; i<200 ; i++){
     wordNum.push(prepStrNum)
 }
 
-//function Letter+Num+Sym array
+//function Letter+Num+Sym into array
 var symArr = []
 
 for(var i =0 ; i<200 ; i++){
@@ -177,7 +179,7 @@ console.log(symArr)
 
 //Start Intro
 function intro(){
-    function welcomeWord(){ 
+    function welcomeWord(){
         currentWord.innerText = 'Lets Type!'
         message.innerText = `Type in ${time} secs.Press Y to start.`;
         var box = document.getElementById('input') ;
@@ -186,7 +188,7 @@ function intro(){
     setTimeout(welcomeWord() , 2000)
 }
 
-//Press Enter to Start
+//Event Listener : Press y to Start
 wordInput.addEventListener('keyup',function(event){
     if(input.value === 'y'){
     input.value = ''
@@ -194,7 +196,7 @@ wordInput.addEventListener('keyup',function(event){
     }
 })
 
-//Initialise game
+//Function Initialise game
 function init(){
     wordInput.addEventListener('input',startGame) ;
     message.innerText=`Start typing!`
@@ -203,7 +205,7 @@ function init(){
     setInterval(checkStatus,1000) ;
 }
 
-//start game
+//Function starting game
 var startGame = function(){
     if(matchWord()){
     isPlaying = true
@@ -216,7 +218,7 @@ var startGame = function(){
 scoreDisplay.innerText = score
 }
 
-//match words
+//Function match words
 var matchWord=function(){
     if(wordInput.value === currentWord.innerText){
         instruc.style.color = 'green'
@@ -232,8 +234,7 @@ var matchWord=function(){
     }
 }
 
-
-//function pick and show random word
+//Function pick and show random word
 var showWord = function(){
 
     index = 0;
@@ -249,7 +250,7 @@ var showWord = function(){
     }
 }
 
-//function pick and show random wordNum
+//Function pick and show random wordNum
 var showWordNum = function(){
 
     index = 0;
@@ -265,8 +266,7 @@ var showWordNum = function(){
     }
 }
 
-//function pick and show random symArr
-
+//Function pick and show random symArr
 var showSymArr = function(){
     index = 0
     const randIndxSym = Math.floor(Math.random()*symArr.length)
@@ -281,13 +281,12 @@ var showSymArr = function(){
     }
 }
 
-//decide if show word or wordNUM
-
+//Function to decide if show word , word+num or word+num+symbol
 var pickArr = function(){
-    if(score <= 3){
+    if(score <= 3){ //score is more than 3
         showWord(words)
     }
-    else if (score <5){
+    else if (score <5){ // score is more than 5
         showWordNum(wordNum)
     }
     else{
@@ -307,7 +306,7 @@ var showPrompt = function(){
     message.innerText = promptWrong[randIndexPrompt];
 }
 
-//set Timer
+//Function set Timer
 var countdown= function(){
     if(time > 0){
         if(time >= 11){
@@ -328,7 +327,7 @@ var countdown= function(){
     timeDisplay.innerHTML=time;
 }
 
-//set Timeout for 10 secs
+//Function set Timeout for 10 secs to restart game
 var timeoutdur = 10;
 
 function minustimeout(){
@@ -336,9 +335,9 @@ function minustimeout(){
     return timeoutdur
 }
 
-//check game status
+//Function check game status
 var checkStatus = function(){
-    if(!isPlaying && time === 0){ ; 
+    if(!isPlaying && time === 0){ ;
     setTimeout(function(){location.reload()},8000)
     wordInput.style.visibility ='hidden';
     timeDisplay.classList.remove("blink")
@@ -351,15 +350,14 @@ var checkStatus = function(){
     message.style.fontSize = '4rem' ;
     currentWord.innerHTML = 'GAME OVER' ;
     currentWord.style.color = 'red' ;
-    wordInput.removeEventListener('keyup' , checkLetterByLetter); 
+    wordInput.removeEventListener('keyup' , checkLetterByLetter);
     }
     else{
-       isPlaying = true ; 
+       isPlaying = true ;
     }
 }
 
-
-//detecting each letter of word and making it light up green.
+//Function detecting each letter of word and making it light up green.
 var index = 0;
 var checkLetterByLetter = function() {
 
@@ -384,4 +382,5 @@ var checkLetterByLetter = function() {
 
 }
 
-wordInput.addEventListener('keyup' , checkLetterByLetter); 
+//Event Listener : To run above function
+wordInput.addEventListener('keyup' , checkLetterByLetter);
