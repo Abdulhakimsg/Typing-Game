@@ -182,23 +182,25 @@ function intro(){
     function welcomeWord(){
         currentWord.innerText = 'Lets Type!'
         message.innerText = `Type in ${time} secs.`;
-        wordInput.setAttribute('placeholder', 'Type Y to start');
+        wordInput.setAttribute('placeholder','Press Enter to start')
         var box = document.getElementById('input') ;
+        wordInput.addEventListener('keyup', pressY)
 
     }
     setTimeout(welcomeWord() , 2000)
 }
 
 //Event Listener : Press y to Start
-wordInput.addEventListener('keyup',function(event){
-    if(input.value == 'y' ){
+var pressY = function(event){
+    if(event.keyCode === 13){
     input.value = ''
     init()
     }
-})
+}
 
 //Function Initialise game
 function init(){
+    wordInput.removeEventListener('keyup', pressY);
     wordInput.setAttribute('placeholder','');
     wordInput.addEventListener('input',startGame) ;
     message.innerText=`Start typing!`
