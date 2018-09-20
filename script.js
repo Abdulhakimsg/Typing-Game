@@ -181,7 +181,8 @@ console.log(symArr)
 function intro(){
     function welcomeWord(){
         currentWord.innerText = 'Lets Type!'
-        message.innerText = `Type in ${time} secs.Press Y to start.`;
+        message.innerText = `Type in ${time} secs.`;
+        wordInput.setAttribute('placeholder', 'Type Y to start');
         var box = document.getElementById('input') ;
 
     }
@@ -198,6 +199,7 @@ wordInput.addEventListener('keyup',function(event){
 
 //Function Initialise game
 function init(){
+    wordInput.setAttribute('placeholder','');
     wordInput.addEventListener('input',startGame) ;
     message.innerText=`Start typing!`
     pickArr() ;
