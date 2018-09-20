@@ -79,7 +79,7 @@ timerSpace.appendChild(timerTitle)
 window.addEventListener('load',intro)
 
 //declaring and initialising working variables
-let time = 45 ;
+let time = 60 ;
 score = 0 ;
 let isPlaying;
 
@@ -139,7 +139,7 @@ var randomStrNum = function(){
 //make random string : Hard
 var randomSym = function(){
     var length = 10
-    charSet = '~!@#$%^&*()_+{}[]|:/?><ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
+    charSet = '~!@#$%^*()_+{}[]|:/?><ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
     retVal = ''
     for(var i =0 , len = charSet.length ; i<length ; i++){
         retVal += charSet.charAt(Math.floor(Math.random()* len))
@@ -190,7 +190,7 @@ function intro(){
 
 //Event Listener : Press y to Start
 wordInput.addEventListener('keyup',function(event){
-    if(input.value === 'y'){
+    if(input.value == 'y' ){
     input.value = ''
     init()
     }
@@ -286,7 +286,7 @@ var pickArr = function(){
     if(score <= 3){ //score is more than 3
         showWord(words)
     }
-    else if (score <5){ // score is more than 5
+    else if (score < 7){ // score is more than 5
         showWordNum(wordNum)
     }
     else{
@@ -294,7 +294,7 @@ var pickArr = function(){
     }
 }
 
-//pick and show random praise
+//Function `pick and show random praise
 var showPraise = function(){
     const randIndexPraise = Math.floor(Math.random()*praise.length)
     message.innerText = praise[randIndexPraise] ;
