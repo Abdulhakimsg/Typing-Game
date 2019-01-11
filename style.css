@@ -5,7 +5,7 @@ body{
 
 #titleSpace{
 	font-family: 'Chivo', sans-serif;
-	position: fixed;
+	position: absolute;
 	height:50vh;
 	width:100%;
 	top:0;
@@ -49,10 +49,10 @@ body{
 
 #center{
 	font-size:7rem;
-	position: fixed;
+	position: absolute;
 	height:30vh;
 	width:100%;
-  top: 85%;
+  top: 90vh;
   left: 50%;
 	transform: translate(-50%, -102%);
 	text-align: center;
@@ -92,7 +92,7 @@ body{
 
 #scoreNum{
 	position:relative;
-	font-size: 15rem;
+	font-size: 145px;
 	top: 39%;
   left: 50%;
 	transform: translate(-50%, -50%);
@@ -119,7 +119,7 @@ body{
 
 #timer{
 	position:relative;
-	font-size: 15rem;
+	font-size: 145px;
 	top: 39%;
   left: 50%;
 	transform: translate(-50%, -50%);
